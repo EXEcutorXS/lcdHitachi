@@ -1,11 +1,11 @@
-#include "lcd.h"
+#include "lcdHitachi.h"
 //------------------------------------------------
 uint8_t buf[1]={0};
 extern I2C_HandleTypeDef hi2c1;
 char str1[21];
 uint8_t portlcd;
 //------------------------------------------------
-__STATIC_INLINE void DelayMicro(__IO uint32_t micros)
+ void DelayMicro(volatile uint32_t micros)
 {
 	micros *=(SystemCoreClock / 1000000) / 5;
 	while (micros--);
@@ -71,13 +71,17 @@ for(i=0;i<20;i++)
 
 void LCD_String16(char* st)
 {
+	uint8_t zeroFound=0;
 	uint8_t i;
 for(i=0;i<16;i++)
 {
-	if(st[i]!=0)
+	if(st[i]!=0 && !zeroFound)
 	sendbyte(st[i], 1);
 	else
+	{
 	sendbyte(' ', 1);
+	zeroFound=1;
+	}
 }
 }
 

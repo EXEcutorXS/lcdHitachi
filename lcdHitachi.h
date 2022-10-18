@@ -1,7 +1,7 @@
 #ifndef LCD_H_
 #define LCD_H_
 //------------------------------------------------
-#include "stm32f1xx_hal.h"
+#include "main.h"
 //------------------------------------------------
 #define e_set() LCD_WriteByteI2CLCD(portlcd|=0x04)  //��������� ����� � � 1
 #define e_reset() LCD_WriteByteI2CLCD(portlcd&=~0x04) //��������� ����� � � 0
